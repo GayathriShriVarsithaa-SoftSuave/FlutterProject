@@ -36,6 +36,7 @@ Widget NumberBtn(
 }
 
 class _Calculator extends State<Calculator> {
+  bool isEqualPressed = false;
   int decimalCount = 0;
   double answer = 0;
   String input = '';
@@ -66,16 +67,16 @@ class _Calculator extends State<Calculator> {
               ),
             ),
 
-            Align(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 20),
-                child: Text(
-                  answer.toString(),
-                  style: const TextStyle(fontSize: 28, color: Colors.white),
-                ),
-              ),
-            ),
+            // Align(
+            //   alignment: Alignment.centerRight,
+            //   child: Padding(
+            //     padding: const EdgeInsets.only(right: 20),
+            //     child: Text(
+            //       answer.toString(),
+            //       style: const TextStyle(fontSize: 28, color: Colors.white),
+            //     ),
+            //   ),
+            // ),
             const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -151,21 +152,42 @@ class _Calculator extends State<Calculator> {
               children: [
                 NumberBtn('7', Colors.white, context, () {
                   setState(() {
+                    if (isEqualPressed) {
+                      input = '';
+                      input = input + '7';
+                      isEqualPressed = false;
+                      return;
+                    }
                     input = input + '7';
                   });
                 }),
                 NumberBtn('8', Colors.white, context, () {
                   setState(() {
+                    if (isEqualPressed) {
+                      input = '';
+                      input = input + '8';
+                      isEqualPressed = false;
+                      return;
+                    }
                     input = input + '8';
                   });
                 }),
                 NumberBtn('9', Colors.white, context, () {
                   setState(() {
+                    if (isEqualPressed) {
+                      input = '';
+                      input = input + '9';
+                      isEqualPressed = false;
+                      return;
+                    }
                     input = input + '9';
                   });
                 }),
                 NumberBtn('/', Colors.orange, context, () {
                   setState(() {
+                    if(isEqualPressed){
+                      isEqualPressed = false;
+                    }
                     decimalCount = 0;
                     if (input.isEmpty) {
                       return;
@@ -186,21 +208,42 @@ class _Calculator extends State<Calculator> {
               children: [
                 NumberBtn('4', Colors.white, context, () {
                   setState(() {
+                    if (isEqualPressed) {
+                      input = '';
+                      input = input + '4';
+                      isEqualPressed = false;
+                      return;
+                    }
                     input = input + '4';
                   });
                 }),
                 NumberBtn('5', Colors.white, context, () {
                   setState(() {
+                    if (isEqualPressed) {
+                      input = '';
+                      input = input + '5';
+                      isEqualPressed = false;
+                      return;
+                    }
                     input = input + '5';
                   });
                 }),
                 NumberBtn('6', Colors.white, context, () {
                   setState(() {
+                    if (isEqualPressed) {
+                      input = '';
+                      input = input + '6';
+                      isEqualPressed = false;
+                      return;
+                    }
                     input = input + '6';
                   });
                 }),
                 NumberBtn('x', Colors.orange, context, () {
                   setState(() {
+                    if(isEqualPressed){
+                      isEqualPressed = false;
+                    }
                     decimalCount = 0;
                     if (input.isEmpty) {
                       return;
@@ -221,21 +264,42 @@ class _Calculator extends State<Calculator> {
               children: [
                 NumberBtn('1', Colors.white, context, () {
                   setState(() {
+                    if (isEqualPressed) {
+                      input = '';
+                      input = input + '1';
+                      isEqualPressed = false;
+                      return;
+                    }
                     input = input + '1';
                   });
                 }),
                 NumberBtn('2', Colors.white, context, () {
                   setState(() {
+                    if (isEqualPressed) {
+                      input = '';
+                      input = input + '2';
+                      isEqualPressed = false;
+                      return;
+                    }
                     input = input + '2';
                   });
                 }),
                 NumberBtn('3', Colors.white, context, () {
                   setState(() {
+                    if (isEqualPressed) {
+                      input = '';
+                      input = input + '3';
+                      isEqualPressed = false;
+                      return;
+                    }
                     input = input + '3';
                   });
                 }),
                 NumberBtn('-', Colors.orange, context, () {
                   setState(() {
+                    if(isEqualPressed){
+                      isEqualPressed = false;
+                    }
                     decimalCount = 0;
                     if (input.trim().endsWith('-')) {
                       return;
@@ -257,6 +321,12 @@ class _Calculator extends State<Calculator> {
               children: [
                 NumberBtn('0', Colors.white, context, () {
                   setState(() {
+                    if (isEqualPressed) {
+                      input = '';
+                      input = input + '0';
+                      isEqualPressed = false;
+                      return;
+                    }
                     input = input + '0';
                   });
                 }),
@@ -279,6 +349,7 @@ class _Calculator extends State<Calculator> {
                 }),
                 NumberBtn('=', Colors.orange, context, () {
                   setState(() {
+                    isEqualPressed = true;
                     decimalCount = 0;
                     operands.clear();
                     operators.clear();
@@ -343,10 +414,14 @@ class _Calculator extends State<Calculator> {
                       }
                     }
                     answer = res;
+                    input = res.toString();
                   });
                 }),
                 NumberBtn('+', Colors.orange, context, () {
                   setState(() {
+                    if(isEqualPressed){
+                      isEqualPressed = false;
+                    }
                     decimalCount = 0;
                     if (input.isEmpty) {
                       return;
