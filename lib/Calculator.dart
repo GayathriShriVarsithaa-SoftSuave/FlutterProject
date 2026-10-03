@@ -89,6 +89,7 @@ class _Calculator extends State<Calculator> {
                     child: ElevatedButton(
                       onPressed: () {
                         setState(() {
+                          isEqualPressed = false;
                           decimalCount = 0;
                           input = '';
                           answer = 0;
@@ -117,6 +118,7 @@ class _Calculator extends State<Calculator> {
                     child: ElevatedButton(
                       onPressed: () {
                         setState(() {
+                          isEqualPressed = false;
                           if (input.isEmpty) {
                             return;
                           }
@@ -343,6 +345,12 @@ class _Calculator extends State<Calculator> {
                       return;
                     }
                     decimalCount = 1;
+                    if(isEqualPressed) {
+                      input = '';
+                      input = input + '0.';
+                      isEqualPressed = false;
+                      return;
+                    }
                     if (input.isEmpty ||
                         input.trim().endsWith('+') ||
                         input.trim().endsWith('-') ||
