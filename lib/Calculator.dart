@@ -401,6 +401,10 @@ class _Calculator extends State<Calculator> {
                           res = res * double.parse(operands[i]);
                         } else if (operators[j] == '/') {
                           if (double.parse(operands[i]) == 0) {
+                            input = '';
+                            operands.clear();
+                            operators.clear();
+                            answer = 0;
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('Cannot divide by zero'),
