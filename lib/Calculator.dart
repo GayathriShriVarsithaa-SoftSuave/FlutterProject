@@ -40,7 +40,6 @@ class _Calculator extends State<Calculator> {
   int decimalCount = 0;
   double answer = 0;
   String input = '';
-  String op = '';
   List<String> operands = [];
   List<String> operators = [];
   @override
@@ -66,17 +65,6 @@ class _Calculator extends State<Calculator> {
                 ),
               ),
             ),
-
-            // Align(
-            //   alignment: Alignment.centerRight,
-            //   child: Padding(
-            //     padding: const EdgeInsets.only(right: 20),
-            //     child: Text(
-            //       answer.toString(),
-            //       style: const TextStyle(fontSize: 28, color: Colors.white),
-            //     ),
-            //   ),
-            // ),
             const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -167,6 +155,11 @@ class _Calculator extends State<Calculator> {
                       isEqualPressed = false;
                       return;
                     }
+                    String currentNumber = input.split(RegExp(r'[+\-x/]')).last;
+                    if (currentNumber == '0') {
+                      input = input.substring(0, input.length - 1) + '7';
+                      return;
+                    }
                     input = input + '7';
                   });
                 }),
@@ -178,6 +171,11 @@ class _Calculator extends State<Calculator> {
                       isEqualPressed = false;
                       return;
                     }
+                    String currentNumber = input.split(RegExp(r'[+\-x/]')).last;
+                    if (currentNumber == '0') {
+                      input = input.substring(0, input.length - 1) + '8';
+                      return;
+                    }
                     input = input + '8';
                   });
                 }),
@@ -187,6 +185,11 @@ class _Calculator extends State<Calculator> {
                       input = '';
                       input = input + '9';
                       isEqualPressed = false;
+                      return;
+                    }
+                    String currentNumber = input.split(RegExp(r'[+\-x/]')).last;
+                    if (currentNumber == '0') {
+                      input = input.substring(0, input.length - 1) + '9';
                       return;
                     }
                     input = input + '9';
@@ -223,6 +226,11 @@ class _Calculator extends State<Calculator> {
                       isEqualPressed = false;
                       return;
                     }
+                    String currentNumber = input.split(RegExp(r'[+\-x/]')).last;
+                    if (currentNumber == '0') {
+                      input = input.substring(0, input.length - 1) + '4';
+                      return;
+                    }
                     input = input + '4';
                   });
                 }),
@@ -234,6 +242,11 @@ class _Calculator extends State<Calculator> {
                       isEqualPressed = false;
                       return;
                     }
+                    String currentNumber = input.split(RegExp(r'[+\-x/]')).last;
+                    if (currentNumber == '0') {
+                      input = input.substring(0, input.length - 1) + '5';
+                      return;
+                    }
                     input = input + '5';
                   });
                 }),
@@ -243,6 +256,11 @@ class _Calculator extends State<Calculator> {
                       input = '';
                       input = input + '6';
                       isEqualPressed = false;
+                      return;
+                    }
+                    String currentNumber = input.split(RegExp(r'[+\-x/]')).last;
+                    if (currentNumber == '0') {
+                      input = input.substring(0, input.length - 1) + '6';
                       return;
                     }
                     input = input + '6';
@@ -279,6 +297,11 @@ class _Calculator extends State<Calculator> {
                       isEqualPressed = false;
                       return;
                     }
+                    String currentNumber = input.split(RegExp(r'[+\-x/]')).last;
+                    if (currentNumber == '0') {
+                      input = input.substring(0, input.length - 1) + '1';
+                      return;
+                    }
                     input = input + '1';
                   });
                 }),
@@ -288,6 +311,11 @@ class _Calculator extends State<Calculator> {
                       input = '';
                       input = input + '2';
                       isEqualPressed = false;
+                      return;
+                    }
+                    String currentNumber = input.split(RegExp(r'[+\-x/]')).last;
+                    if (currentNumber == '0') {
+                      input = input.substring(0, input.length - 1) + '2';
                       return;
                     }
                     input = input + '2';
@@ -301,24 +329,40 @@ class _Calculator extends State<Calculator> {
                       isEqualPressed = false;
                       return;
                     }
+                    String currentNumber = input.split(RegExp(r'[+\-x/]')).last;
+                    if (currentNumber == '0') {
+                      input = input.substring(0, input.length - 1) + '3';
+                      return;
+                    }
                     input = input + '3';
                   });
                 }),
                 NumberBtn('-', Colors.orange, context, () {
                   setState(() {
-                    if (isEqualPressed) {
-                      isEqualPressed = false;
-                    }
                     decimalCount = 0;
                     if (input.trim().endsWith('-')) {
+                      input = input.substring(0, input.length - 1);
+                      input = input + '+';
                       return;
                     }
-
-                    if (input.trim().endsWith('+') ||
-                        input.trim().endsWith('-') ||
-                        input.trim().endsWith('x') ||
-                        input.trim().endsWith('/')) {
-                      input = input.substring(0, input.length - 1);
+                    if (input.isEmpty) {
+                      input = '-';
+                      isEqualPressed = false;
+                      return;
+                    }
+                    if (isEqualPressed) {
+                      input = '-';
+                      isEqualPressed = false;
+                      return;
+                    }
+                    if (input.endsWith('x') ||
+                        input.endsWith('/')) {
+                      input = input + '-';
+                      return;
+                    }
+                    if(input.endsWith('+')) {
+                      input = input.substring(0, input.length - 1) + '-';
+                      return;
                     }
                     input = input + '-';
                   });
@@ -330,6 +374,9 @@ class _Calculator extends State<Calculator> {
               children: [
                 NumberBtn('0', Colors.white, context, () {
                   setState(() {
+                    if (input == '0') {
+                      return;
+                    }
                     if (isEqualPressed) {
                       input = '';
                       input = input + '0';
@@ -345,7 +392,7 @@ class _Calculator extends State<Calculator> {
                       return;
                     }
                     decimalCount = 1;
-                    if(isEqualPressed) {
+                    if (isEqualPressed) {
                       input = '';
                       input = input + '0.';
                       isEqualPressed = false;
