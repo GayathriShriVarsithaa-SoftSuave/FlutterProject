@@ -36,10 +36,10 @@ Widget NumberBtn(
 }
 
 class _Calculator extends State<Calculator> {
+  bool isEqualPressed = false;
   int decimalCount = 0;
   double answer = 0;
   String input = '';
-  String op = '';
   List<String> operands = [];
   List<String> operators = [];
   @override
@@ -65,17 +65,6 @@ class _Calculator extends State<Calculator> {
                 ),
               ),
             ),
-
-            Align(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 20),
-                child: Text(
-                  answer.toString(),
-                  style: const TextStyle(fontSize: 28, color: Colors.white),
-                ),
-              ),
-            ),
             const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -88,6 +77,7 @@ class _Calculator extends State<Calculator> {
                     child: ElevatedButton(
                       onPressed: () {
                         setState(() {
+                          isEqualPressed = false;
                           decimalCount = 0;
                           input = '';
                           answer = 0;
@@ -116,16 +106,24 @@ class _Calculator extends State<Calculator> {
                     child: ElevatedButton(
                       onPressed: () {
                         setState(() {
+                          isEqualPressed = false;
                           if (input.isEmpty) {
                             return;
                           }
-                          if (input.trimRight().endsWith('.')) {
-                            decimalCount = 0;
-                          }
+
                           input = input.trimRight().substring(
                             0,
                             input.trimRight().length - 1,
                           );
+                          List<String> parts = input.split(RegExp(r'[+\-x/]'));
+
+                          String currentNumber = parts.last;
+
+                          if (currentNumber.contains('.')) {
+                            decimalCount = 1;
+                          } else {
+                            decimalCount = 0;
+                          }
                         });
                       },
                       style: ElevatedButton.styleFrom(
@@ -151,21 +149,57 @@ class _Calculator extends State<Calculator> {
               children: [
                 NumberBtn('7', Colors.white, context, () {
                   setState(() {
+                    if (isEqualPressed) {
+                      input = '';
+                      input = input + '7';
+                      isEqualPressed = false;
+                      return;
+                    }
+                    String currentNumber = input.split(RegExp(r'[+\-x/]')).last;
+                    if (currentNumber == '0') {
+                      input = input.substring(0, input.length - 1) + '7';
+                      return;
+                    }
                     input = input + '7';
                   });
                 }),
                 NumberBtn('8', Colors.white, context, () {
                   setState(() {
+                    if (isEqualPressed) {
+                      input = '';
+                      input = input + '8';
+                      isEqualPressed = false;
+                      return;
+                    }
+                    String currentNumber = input.split(RegExp(r'[+\-x/]')).last;
+                    if (currentNumber == '0') {
+                      input = input.substring(0, input.length - 1) + '8';
+                      return;
+                    }
                     input = input + '8';
                   });
                 }),
                 NumberBtn('9', Colors.white, context, () {
                   setState(() {
+                    if (isEqualPressed) {
+                      input = '';
+                      input = input + '9';
+                      isEqualPressed = false;
+                      return;
+                    }
+                    String currentNumber = input.split(RegExp(r'[+\-x/]')).last;
+                    if (currentNumber == '0') {
+                      input = input.substring(0, input.length - 1) + '9';
+                      return;
+                    }
                     input = input + '9';
                   });
                 }),
                 NumberBtn('/', Colors.orange, context, () {
                   setState(() {
+                    if (isEqualPressed) {
+                      isEqualPressed = false;
+                    }
                     decimalCount = 0;
                     if (input.isEmpty) {
                       return;
@@ -186,21 +220,57 @@ class _Calculator extends State<Calculator> {
               children: [
                 NumberBtn('4', Colors.white, context, () {
                   setState(() {
+                    if (isEqualPressed) {
+                      input = '';
+                      input = input + '4';
+                      isEqualPressed = false;
+                      return;
+                    }
+                    String currentNumber = input.split(RegExp(r'[+\-x/]')).last;
+                    if (currentNumber == '0') {
+                      input = input.substring(0, input.length - 1) + '4';
+                      return;
+                    }
                     input = input + '4';
                   });
                 }),
                 NumberBtn('5', Colors.white, context, () {
                   setState(() {
+                    if (isEqualPressed) {
+                      input = '';
+                      input = input + '5';
+                      isEqualPressed = false;
+                      return;
+                    }
+                    String currentNumber = input.split(RegExp(r'[+\-x/]')).last;
+                    if (currentNumber == '0') {
+                      input = input.substring(0, input.length - 1) + '5';
+                      return;
+                    }
                     input = input + '5';
                   });
                 }),
                 NumberBtn('6', Colors.white, context, () {
                   setState(() {
+                    if (isEqualPressed) {
+                      input = '';
+                      input = input + '6';
+                      isEqualPressed = false;
+                      return;
+                    }
+                    String currentNumber = input.split(RegExp(r'[+\-x/]')).last;
+                    if (currentNumber == '0') {
+                      input = input.substring(0, input.length - 1) + '6';
+                      return;
+                    }
                     input = input + '6';
                   });
                 }),
                 NumberBtn('x', Colors.orange, context, () {
                   setState(() {
+                    if (isEqualPressed) {
+                      isEqualPressed = false;
+                    }
                     decimalCount = 0;
                     if (input.isEmpty) {
                       return;
@@ -221,16 +291,49 @@ class _Calculator extends State<Calculator> {
               children: [
                 NumberBtn('1', Colors.white, context, () {
                   setState(() {
+                    if (isEqualPressed) {
+                      input = '';
+                      input = input + '1';
+                      isEqualPressed = false;
+                      return;
+                    }
+                    String currentNumber = input.split(RegExp(r'[+\-x/]')).last;
+                    if (currentNumber == '0') {
+                      input = input.substring(0, input.length - 1) + '1';
+                      return;
+                    }
                     input = input + '1';
                   });
                 }),
                 NumberBtn('2', Colors.white, context, () {
                   setState(() {
+                    if (isEqualPressed) {
+                      input = '';
+                      input = input + '2';
+                      isEqualPressed = false;
+                      return;
+                    }
+                    String currentNumber = input.split(RegExp(r'[+\-x/]')).last;
+                    if (currentNumber == '0') {
+                      input = input.substring(0, input.length - 1) + '2';
+                      return;
+                    }
                     input = input + '2';
                   });
                 }),
                 NumberBtn('3', Colors.white, context, () {
                   setState(() {
+                    if (isEqualPressed) {
+                      input = '';
+                      input = input + '3';
+                      isEqualPressed = false;
+                      return;
+                    }
+                    String currentNumber = input.split(RegExp(r'[+\-x/]')).last;
+                    if (currentNumber == '0') {
+                      input = input.substring(0, input.length - 1) + '3';
+                      return;
+                    }
                     input = input + '3';
                   });
                 }),
@@ -238,14 +341,28 @@ class _Calculator extends State<Calculator> {
                   setState(() {
                     decimalCount = 0;
                     if (input.trim().endsWith('-')) {
+                      input = input.substring(0, input.length - 1);
+                      input = input + '+';
                       return;
                     }
-
-                    if (input.trim().endsWith('+') ||
-                        input.trim().endsWith('-') ||
-                        input.trim().endsWith('x') ||
-                        input.trim().endsWith('/')) {
-                      input = input.substring(0, input.length - 1);
+                    if (input.isEmpty) {
+                      input = '-';
+                      isEqualPressed = false;
+                      return;
+                    }
+                    if (isEqualPressed) {
+                      input = '-';
+                      isEqualPressed = false;
+                      return;
+                    }
+                    if (input.endsWith('x') ||
+                        input.endsWith('/')) {
+                      input = input + '-';
+                      return;
+                    }
+                    if(input.endsWith('+')) {
+                      input = input.substring(0, input.length - 1) + '-';
+                      return;
                     }
                     input = input + '-';
                   });
@@ -257,6 +374,15 @@ class _Calculator extends State<Calculator> {
               children: [
                 NumberBtn('0', Colors.white, context, () {
                   setState(() {
+                    if (input == '0') {
+                      return;
+                    }
+                    if (isEqualPressed) {
+                      input = '';
+                      input = input + '0';
+                      isEqualPressed = false;
+                      return;
+                    }
                     input = input + '0';
                   });
                 }),
@@ -266,6 +392,12 @@ class _Calculator extends State<Calculator> {
                       return;
                     }
                     decimalCount = 1;
+                    if (isEqualPressed) {
+                      input = '';
+                      input = input + '0.';
+                      isEqualPressed = false;
+                      return;
+                    }
                     if (input.isEmpty ||
                         input.trim().endsWith('+') ||
                         input.trim().endsWith('-') ||
@@ -279,6 +411,7 @@ class _Calculator extends State<Calculator> {
                 }),
                 NumberBtn('=', Colors.orange, context, () {
                   setState(() {
+                    isEqualPressed = true;
                     decimalCount = 0;
                     operands.clear();
                     operators.clear();
@@ -330,6 +463,10 @@ class _Calculator extends State<Calculator> {
                           res = res * double.parse(operands[i]);
                         } else if (operators[j] == '/') {
                           if (double.parse(operands[i]) == 0) {
+                            input = '';
+                            operands.clear();
+                            operators.clear();
+                            answer = 0;
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('Cannot divide by zero'),
@@ -343,10 +480,14 @@ class _Calculator extends State<Calculator> {
                       }
                     }
                     answer = res;
+                    input = res.toStringAsFixed(2);
                   });
                 }),
                 NumberBtn('+', Colors.orange, context, () {
                   setState(() {
+                    if (isEqualPressed) {
+                      isEqualPressed = false;
+                    }
                     decimalCount = 0;
                     if (input.isEmpty) {
                       return;
